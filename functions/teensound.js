@@ -31,7 +31,7 @@ function teensound(message, prefix, client, args) {
 
       }
 
-      if (message.content === (prefix + 'join')) {
+      if (message.content == (prefix + 'join')) {
         audiochan.join();
       }
 
@@ -47,7 +47,7 @@ function teensound(message, prefix, client, args) {
       message.reply(bot_hmsg1)
     }
 
-    if (message.content === (prefix + 'leave')) {
+    if (message.content == (prefix + 'leave')) {
           var audiochan = message.member.voiceChannel;
           if (audiochan) {
             audiochan.leave();
@@ -64,7 +64,7 @@ function teensound(message, prefix, client, args) {
           }
         }
 
-        if (message.content === (prefix + 'stop')) {
+        if (message.content == (prefix + 'stop')) {
           var audiochan = message.member.voiceChannel;
           if (audiochan) {
             audiochan.join()

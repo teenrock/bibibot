@@ -28,8 +28,9 @@ function isMentionned(message, member, decache, path, MentionMSG) {
     }
 
   	if ((member.id == xzdc_id)||(member.id == xzdcdev_id)||(member.id == teen_id)) {
-      if (teenhome_repstat == 'OFF') member.user.send(MentionMSG);
-      if ((teenhome_repstat == 'ON') && (message.channel != homesweetteen)) member.user.send(MentionMSG);
+      if (teenhome_repstat == 'OFF') xzdc.send(MentionMSG);
+      if ((teenhome_repstat == 'ON') && (message.channel != homesweetteen)) xzdc.send(MentionMSG);
+
   	}
 
   }
@@ -37,5 +38,3 @@ function isMentionned(message, member, decache, path, MentionMSG) {
 }
 
 module.exports = isMentionned
-
-    

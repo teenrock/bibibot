@@ -6,7 +6,7 @@ function teensound(message, prefix, client, args) {
   const bot_hmsg2 = 'vous devez d\'abord rejoindre le salon vocal auquel le bot est connecté.';
   foldersList = ["classique", "divers", "dub", "electro", "mix", "rap", "reggae", "rock", "furax", "furax2"];
 
-  if ((message.author.id == client.id) || (message.channel != bot_cmd) || (message.channel != homesweetash) || (message.channel != homesweetteen) || (message.author.bot)) return;
+  if ((message.author.id == client.id) || (!message.channel == bot_cmd) || (!message.channel == homesweetash) || (!message.channel == homesweetteen) || (message.author.bot)) return;
 
     var audiochan = message.member.voiceChannel;
 

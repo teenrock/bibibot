@@ -7,6 +7,8 @@ function teensound(message, prefix, client, args) {
   foldersList = ["classique", "divers", "dub", "electro", "mix", "rap", "reggae", "rock", "furax", "furax2"];
 
   if ((message.author.id == client.id) || (!message.channel == bot_cmd) || (!message.channel == homesweetash) || (!message.channel == homesweetteen) || (message.author.bot)) return;
+  
+  if (message.content.startsWith(prefix + "aw")) return;
 
     var audiochan = message.member.voiceChannel;
 

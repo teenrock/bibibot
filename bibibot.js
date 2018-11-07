@@ -19,12 +19,12 @@ client.on("ready", (message) => {
 
 client.on("message", message => {
 
-  if ((message.author.bot) || (message.channel == undefined)) return;
+  if ((message.author.bot) || (message.channel.name == undefined)) return;
   var member = message.mentions.members.first();
   var args = message.content.split(" ");
   var MentionMSG = ` **#############################################################################################**
  ${new Date()}\n\n **${message.author.username}** vous a mentionné sur <#${message.channel.id}>\n
- ${message}\n\n **#############################################################################################**\n`;
+ ${message}\n`;
 
   // Bot DM report message to member if mentionned
   if ((member) && (!message.content.startsWith(prefix))) {
@@ -33,14 +33,10 @@ client.on("message", message => {
   }
 
   // Bot DM report function on #chouchoune_home channel
-  if (message.channel == homesweetash) {
+  if ((message.channel == homesweetash)||(message.channel == homesweetteen)) {
     const homechanrep_ash = require("./functions/homechanrep_ash.js");
-    homechanrep_ash(message, prefix, client, fs, decache, path, args)
-  }
-
-  // Bot DM report function on #titounet_home channel
-  if (message.channel == homesweetteen) {
     const homechanrep_teen = require("./functions/homechanrep_teen.js");
+    homechanrep_ash(message, prefix, client, fs, decache, path, args)
     homechanrep_teen(message, prefix, client, fs, decache, path, args)
   }
 
@@ -49,13 +45,18 @@ client.on("message", message => {
     const cmds = require("./functions/cmds.js");
     const ash_cmds = require("./functions/ash_cmds.js");
     const teen_cmds = require("./functions/teen_cmds.js");
-    const teensound = require("./functions/teensound.js")
+    const teensound = require("./functions/teensound.js");
     cmds(message, prefix, client, args)
     ash_cmds(message, prefix, fs, decache, path, args)
     teen_cmds(message, prefix, fs, decache, path, args)
     teensound(message, prefix, client, args)
   }
 
+});
+
+client.on('voiceStateUpdate', (oldMember, newMember) => {
+  const JoinQuitVoc = require("./functions/JoinQuitVoc.js");
+  JoinQuitVoc(oldMember, newMember)
 });
 
 client.login(config.token)

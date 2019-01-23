@@ -1,34 +1,72 @@
 function JoinQuitVoc(oldMember, newMember) {
 
-  let newUserChannel = newMember.voiceChannel
-  let oldUserChannel = oldMember.voiceChannel
-  var serverName = `>>> ${newMember.guild.name||oldMember.guild.name} <<<`;
-  let member = newMember||oldMember;
-
   if ((newMember == undefined)||(oldMember == undefined)) return;
 
-  // UserJoin VoiceChannel
-  if (oldUserChannel == undefined || oldUserChannel == null) {
-    var newUserVocMsg = `**${newMember.user.username}** s'est connecté au salon vocal **${newUserChannel.name}**`;
-    var vocChanMSG1 = `**\`${new Date()}\`** | ` + newUserVocMsg;
+  let newUserChannel = newMember.voiceChannel
+  let oldUserChannel = oldMember.voiceChannel
+  let member = newMember||oldMember
+  var serverName = `>>> ${newMember.guild.name||oldMember.guild.name} <<<`
+  var loveRole = newMember.guild.roles.get("534345269614215170")||oldMember.guild.roles.get("534345269614215170")
+  var ashMember = member.guild.members.get(ash_id)
+  var ashPCMember = member.guild.members.get(ashPC_id)
+  var xzdcMember = member.guild.members.get(xzdc_id)
+  var xzdcdevMember = member.guild.members.get(xzdcdev_id)
+  var teenMember = member.guild.members.get(teen_id)
 
-    if (member.id == ash.id) {
-      xzdc.send(vocChanMSG1);
+  // UserJoin VoiceChannel
+  if ((oldUserChannel == undefined) && (newUserChannel != undefined)) {
+
+    var newUserVocMsg = `**${newMember.user.username}** s'est connecté au salon vocal **${newUserChannel.name}**`
+    var vocChanMSG1 = `**\`${new Date()}\`** | ` + newUserVocMsg
+
+    if (ashPC == undefined) {
+      ashPC_id = null
     }
+
+    if ((member.id == ash.id) || (member == ashPC_id)) {
+      member.user.send(`Une alerte vient d'être envoyée à **Titounet** pour l'informer de ton arrivée sur **${newMember.voiceChannel.name}**`)
+      xzdc.send(vocChanMSG1).catch(err => {
+        if (err) return member.user.send("**Titounet** n'a pas pu être prévenu en raison d'une erreur...\n(il a fait l'con !)")
+       });
+      
+      if ((xzdcMember.voiceChannel != undefined) || (xzdcdevMember.voiceChannel != undefined) || (teenMember.voiceChannel != undefined)) {
+        member.addRole(loveRole.id);
+        if (xzdcMember.voiceChannel != undefined) return xzdcMember.addRole(loveRole.id)
+        if (xzdcdevMember.voiceChannel != undefined) return xzdcdevMember.addRole(loveRole.id)
+        if (teenMember.voiceChannel != undefined) return teenMember.addRole(loveRole.id)
+
+      }
+
+    }
+
     if ((member.id == xzdc.id) || (member.id == xzdcdev.id) || (member.id == teen.id)) {
-      ash.send(vocChanMSG1);
+      member.user.send(`Une alerte vient d'être envoyée à **Chouchoune** pour l'informer de ton arrivée sur **${newMember.voiceChannel.name}**`)
+      ash.send(vocChanMSG1).catch(err => {
+        if (err) return member.user.send("**Chouchoune** n'a pas pu être prévenue en raison d'une erreur... (Pauvre con !)")
+      });
+      
+
+      if (ashMember.voiceChannel != undefined) {
+        member.addRole(loveRole.id);
+        if (ashMember.voiceChannel != undefined) return ashMember.addRole(loveRole.id)
+        if (ashPCMember.voiceChannel != undefined) return ashPCMember.addRole(loveRole.id)
+
+      }
+      
     }
     
   }
 
   // UserLeave VoiceChannel
-  /*
   if ((newUserChannel == undefined) || (newUserChannel == null)) {
-    var oldUserVocMsg = `**${oldMember.user.username}** a quitté le salon vocal **${oldUserChannel.name}**`;
-    var vocChanMSG2 = `**\`${new Date()}\`** | ` + oldUserVocMsg;
-    xzdc.send(vocChanMSG2);
+    member.removeRole(loveRole.id) && console.log(" Le role " + loveRole.name + " a été retiré à " + member.user.username)
+    loverList.forEach(user => {
+      if ((user == null) || (user == undefined)) return
+      var loveUser = member.guild.members.get(user.id)
+      if (((loveUser.id != member.id) && (loveUser.id != undefined)) && loveUser.roles.has(loveRole.id)) loveUser.removeRole(loveRole.id) && console.log(" Le role " + loveRole.name + " a été retiré à " + user.username)
+    })
   }
-  */
+  
 }
 
 module.exports = JoinQuitVoc

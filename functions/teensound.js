@@ -1,7 +1,7 @@
 function teensound(message, prefix, client, args) {
 
   var playlist_url = "http://teenanon.free.fr/teenrock/discordbot/music_playlist/";
-  const play = "pl";
+  const play = "bibiplay";
   const bot_hmsg1 = 'vous devez d\'abord rejoindre un salon vocal.';
   const bot_hmsg2 = 'vous devez d\'abord rejoindre le salon vocal auquel le bot est connecté.';
   foldersList = ["classique", "divers", "dub", "electro", "mix", "rap", "reggae", "rock", "furax", "furax2"];
@@ -11,6 +11,22 @@ function teensound(message, prefix, client, args) {
   if (message.content.startsWith(prefix + "aw")) return;
 
     var audiochan = message.member.voiceChannel;
+
+    if (message.content == (prefix + 'bibijoin' + ' ' + args[1])) {
+      if (args[1] === 'here') {
+        return audiochan.join()};
+      if (args[1] === 'spksnd') {
+        return spksnd.join();
+      }
+    }
+
+    if (message.content.startsWith(prefix + 'bibileave' + ' ' + args[1])) {
+      var audiochan = message.member.voiceChannel;
+      let args = message.content.split(' ');
+      if (args[1] === 'spksnd') {
+        return spksnd.leave();
+      }
+    }
 
     if (audiochan) {
 
@@ -33,23 +49,15 @@ function teensound(message, prefix, client, args) {
 
       }
 
-      if (message.content == (prefix + 'join')) {
+      if (message.content == (prefix + 'bibijoin')) {
         audiochan.join();
       }
-
-      if (message.content == (prefix + 'join' + ' ' + args[1])) {
-            if (args[1] === 'here') {
-            audiochan.join()};
-            if (args[1] === 'spksnd') {
-            spksnd.join();
-          }
-        }
 
     } else {
       message.reply(bot_hmsg1)
     }
 
-    if (message.content == (prefix + 'leave')) {
+    if (message.content == (prefix + 'bibileave')) {
           var audiochan = message.member.voiceChannel;
           if (audiochan) {
             audiochan.leave();
@@ -58,15 +66,7 @@ function teensound(message, prefix, client, args) {
           }
         }
 
-        if (message.content.startsWith(prefix + 'leave' + ' ' + args[1])) {
-          var audiochan = message.member.voiceChannel;
-            let args = message.content.split(' ');
-            if (args[1] === 'spksnd') {
-            spksnd.leave();
-          }
-        }
-
-        if (message.content == (prefix + 'stop')) {
+        if (message.content == (prefix + 'bibistop')) {
           var audiochan = message.member.voiceChannel;
           if (audiochan) {
             audiochan.join()

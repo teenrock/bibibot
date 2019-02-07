@@ -26,7 +26,7 @@ function JoinQuitVoc(oldMember, newMember) {
     // Chouchoune Join Vocal
     if ((member.id == ash.id) || (member.id == ashPC_id)) {
 
-      if ((xzdcMember.voiceChannel == undefined) || (xzdcdevMember.voiceChannel == undefined) || (teenMember.voiceChannel == undefined)) {
+      if ((xzdcMember.voiceChannel == undefined) && (xzdcdevMember.voiceChannel == undefined) && (teenMember.voiceChannel == undefined)) {
         
         member.user.send(`Une alerte vient d'être envoyée à **Titounet** pour l'informer de ton arrivée sur **${newMember.voiceChannel.name}**`)
         xzdc.send(vocChanMSG1).catch(err => {
@@ -47,7 +47,7 @@ function JoinQuitVoc(oldMember, newMember) {
     // Titounet Join Vocal
     if ((member.id == xzdc.id) || (member.id == xzdcdev.id) || (member.id == teen.id)) {
 
-      if ((ashMember.voiceChannel == undefined) /*|| (ashPCMember.voiceChannel == undefined)*/) {
+      if ((ashMember.voiceChannel == undefined) /*&& (ashPCMember.voiceChannel == undefined)*/) {
 
         member.user.send(`Une alerte vient d'être envoyée à **Chouchoune** pour l'informer de ton arrivée sur **${newMember.voiceChannel.name}**`)
         ash.send(vocChanMSG1).catch(err => {
